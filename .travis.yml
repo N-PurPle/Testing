@@ -1,0 +1,36 @@
+
+language: cpp
+
+sudo: required
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - kalakris-cmake
+    packages:
+    - cmake
+    - python3
+
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      compiler: gcc
+      env: COMPILER_NAME=GCC BUILD_TYPE=Debug TESTING_BUILD_TYPE=COVERAGE
+
+install:
+  - if [ "${BEFANG_BUILD_CONFIG}" = 'COVERAGE' ]; then pip install --user cpp-coveralls; fi
+  - export PATH=$HOME/.local/bin:$PATH
+
+script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir build && cd build
+  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+  - cmake --build . --config ${BUILD_TYPE}
+  - ctest
+
+after_success:
+  - cd ${TRAVIS_BUILD_DIR}
+  - coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' -e dependencies -e build/CMakeFiles --gcov /usr/bin/gcov-5 --gcov-options '\-lp' -t ${COVERALLS_TOKEN} --verbose
+
