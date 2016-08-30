@@ -7,11 +7,12 @@ message(${TESTING_ROOT}/include)
 
 include_directories(
     ${TESTING_ROOT}/include
+    ${TESTING_ROOT}/dependencies/googletest/googletest/include
 )
 
 function(add_testing_test name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} testing)
+    target_link_libraries(${name} testing gtest gtest_main)
     add_test(
         ${name}
         ${name}

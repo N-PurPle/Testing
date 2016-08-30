@@ -1,15 +1,14 @@
-#include <iostream>
+#include <gtest/gtest.h>
 #include <testing/testing.hpp>
 
 
-int main(int argc,const char* argv[])
+namespace{
+    
+class MyFuncTest : public ::testing::Test{};
+
+TEST_F(MyFuncTest,isSame)
 {
-    using namespace std;
-
-    cout << "Hello World!!" << endl;
-
-    func();
-
-    return 0;
+    EXPECT_EQ(0, func());
 }
 
+} // unnamed namespace

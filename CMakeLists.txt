@@ -9,6 +9,8 @@ if($ENV{TESTING_BUILD_TYPE} STREQUAL "COVERAGE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -coverage")
 endif()
 
+add_subdirectory(dependencies)
+
 set(TESTING_ROOT ${CMAKE_CURRENT_LIST_DIR})
 
 set(
