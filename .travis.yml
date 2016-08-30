@@ -31,5 +31,5 @@ script:
 
 after_success:
   - cd ${TRAVIS_BUILD_DIR}
-  - coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' -e CMakeFiles --gcov /usr/bin/gcov --gcov-options '\-lp' --verbose;
+  - coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' --gcov /usr/bin/gcov --gcov-options '\-lp' --verbose;
 
