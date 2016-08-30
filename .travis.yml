@@ -31,6 +31,5 @@ script:
   - ctest
 
 after_success:
-  - cd ${TRAVIS_BUILD_DIR}
-  - coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' -e dependencies -e build/CMakeFiles --gcov /usr/bin/gcov-5 --gcov-options '\-lp' -t ${COVERALLS_TOKEN} --verbose
+  - if [ "${COMPILER_NAME}" = 'GCC' && "${BEFANG_BUILD_CONFIG}" = 'COVERAGE' ]; then cd ${TRAVIS_BUILD_DIR} && coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' -e build/CMakeFiles --gcov /usr/bin/gcov --gcov-options '\-lp' --verbose; fi
 
