@@ -31,9 +31,6 @@ script:
   - ctest
 
 after_success:
-  - if [ "${TESTING_BUILD_TYPE}" = 'COVERAGE' ]; then 
-      cd ${TRAVIS_BUILD_DIR}
-      echo "Build with coveralls"
-      coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' -e build/CMakeFiles --gcov /usr/bin/gcov --gcov-options '\-lp' --verbose;
-    fi
+  - cd ${TRAVIS_BUILD_DIR}
+  - coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' -e build/CMakeFiles --gcov /usr/bin/gcov --gcov-options '\-lp' --verbose;
 
