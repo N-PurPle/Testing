@@ -20,7 +20,7 @@ matrix:
       env: COMPILER_NAME=GCC BUILD_TYPE=Debug TESTING_BUILD_TYPE=COVERAGE
 
 install:
-  - if [ "${BEFANG_BUILD_CONFIG}" = 'COVERAGE' ]; then pip install --user cpp-coveralls; fi
+  - if [ "${TESTING_BUILD_TYPE}" = 'COVERAGE' ]; then pip install --user cpp-coveralls; fi
   - export PATH=$HOME/.local/bin:$PATH
 
 script:
@@ -31,5 +31,5 @@ script:
   - ctest
 
 after_success:
-  - if [ "${COMPILER_NAME}" = 'GCC' && "${BEFANG_BUILD_CONFIG}" = 'COVERAGE' ]; then cd ${TRAVIS_BUILD_DIR} && coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' -e build/CMakeFiles --gcov /usr/bin/gcov --gcov-options '\-lp' --verbose; fi
+  - if [ "${COMPILER_NAME}" = 'GCC' && "${TESTING_BUILD_TYPE}" = 'COVERAGE' ]; then cd ${TRAVIS_BUILD_DIR} && coveralls -r ./ -b ./ -E '.*/tests/[^\.].*' -e build/CMakeFiles --gcov /usr/bin/gcov --gcov-options '\-lp' --verbose; fi
 
